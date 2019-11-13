@@ -1,5 +1,5 @@
 {
-    "name": "artisansdk/ratelimiter",
+    "name": "janwehner/ratelimiter",
     "description": "A leaky bucket rate limiter and middleware controls for route-level granularity.",
     "type": "library",
     "license": "MIT",
