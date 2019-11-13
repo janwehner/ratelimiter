@@ -61,9 +61,9 @@ class Cache implements Repository
      *
      * @param string                                     $key
      * @param mixed                                      $value
-     * @param \DateTimeInterface|\DateInterval|float|int $minutes
+     * @param \DateTimeInterface|\DateInterval|float|int $ttl
      */
-    public function put($key, $value, $minutes)
+    public function put($key, $value, $ttl = null)
     {
         $this->storage[$key] = $value;
     }
@@ -73,14 +73,14 @@ class Cache implements Repository
      *
      * @param string                                     $key
      * @param mixed                                      $value
-     * @param \DateTimeInterface|\DateInterval|float|int $minutes
+     * @param \DateTimeInterface|\DateInterval|float|int $ttl
      *
      * @return bool
      */
-    public function add($key, $value, $minutes)
+    public function add($key, $value, $ttl = null)
     {
         if ( ! $this->has($key)) {
-            $this->put($key, $value, $minutes);
+            $this->put($key, $value, $ttl);
 
             return true;
         }
@@ -132,12 +132,12 @@ class Cache implements Repository
      * Get an item from the cache, or store the default value.
      *
      * @param string                                     $key
-     * @param \DateTimeInterface|\DateInterval|float|int $minutes
+     * @param \DateTimeInterface|\DateInterval|float|int $ttl
      * @param \Closure                                   $callback
      *
      * @return mixed
      */
-    public function remember($key, $minutes, Closure $callback)
+    public function remember($key, $ttl = null, Closure $callback)
     {
         $value = $this->get($key);
 
@@ -145,7 +145,7 @@ class Cache implements Repository
             return $value;
         }
 
-        $this->put($key, $value = $callback(), $minutes);
+        $this->put($key, $value = $callback(), $ttl);
 
         return $value;
     }

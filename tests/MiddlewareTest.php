@@ -41,8 +41,8 @@ class MiddlewareTest extends TestCase
         $this->assertInstanceOf(Response::class, $response, 'The middleware should return a response.');
         $this->assertTrue($headers->has('X-RateLimit-Limit'), 'The X-RateLimit-Limit header should present.');
         $this->assertTrue($headers->has('X-RateLimit-Remaining'), 'The X-RateLimit-Remaining header should be present.');
-        $this->assertSame($resolver->max(), $headers->get('X-RateLimit-Limit'), 'The X-RateLimit-Limit header should be the max limit of the resolver.');
-        $this->assertSame($resolver->max() - 1, $headers->get('X-RateLimit-Remaining'), 'The X-RateLimit-Remaining header should be the max limit of the resolver less the number of hits (1).');
+        $this->assertEquals($resolver->max(), $headers->get('X-RateLimit-Limit'), 'The X-RateLimit-Limit header should be the max limit of the resolver.');
+        $this->assertEquals($resolver->max() - 1, $headers->get('X-RateLimit-Remaining'), 'The X-RateLimit-Remaining header should be the max limit of the resolver less the number of hits (1).');
 
         $response = $middleware->handle($request, $next);
         $headers = $response->headers;
@@ -52,8 +52,8 @@ class MiddlewareTest extends TestCase
         $this->assertTrue($limiter->exceeded(), 'The middleware should have exceeded the limits of the limiter.');
         $this->assertTrue($headers->has('X-RateLimit-Limit'), 'The X-RateLimit-Limit header should present.');
         $this->assertTrue($headers->has('X-RateLimit-Remaining'), 'The X-RateLimit-Remaining header should be present.');
-        $this->assertSame($resolver->max(), $headers->get('X-RateLimit-Limit'), 'The X-RateLimit-Limit header should be the max limit of the resolver.');
-        $this->assertSame($resolver->max() - 2, $headers->get('X-RateLimit-Remaining'), 'The X-RateLimit-Remaining header should be the max limit of the resolver less the number of hits (2).');
+        $this->assertEquals($resolver->max(), $headers->get('X-RateLimit-Limit'), 'The X-RateLimit-Limit header should be the max limit of the resolver.');
+        $this->assertEquals($resolver->max() - 2, $headers->get('X-RateLimit-Remaining'), 'The X-RateLimit-Remaining header should be the max limit of the resolver less the number of hits (2).');
 
         try {
             $middleware->handle($request, $next);
@@ -76,7 +76,7 @@ class MiddlewareTest extends TestCase
         $this->assertSame($timeout->getTimestamp(), $headers['X-RateLimit-Reset'], 'The X-RateLimit-Reset header should be the same as the timestamp of the rate limiter timeout.');
 
         try {
-            $cache->put('foo:timeout', $timer - 10, $resolver->duration());
+            $cache->put('foo:timeout', $timer - 10, $resolver->duration() * 60);
             $middleware->handle($request, $next);
         } catch (Exception $exception) {
         }

@@ -145,7 +145,7 @@ class Limiter implements Contract
         $this->cache->put(
             $this->getTimeoutKey(),
             (int) $this->lastBucket()->timer() + ($duration * 60),
-            $duration
+            $duration * 60
         );
     }
 
@@ -161,7 +161,7 @@ class Limiter implements Contract
             $this->cache->put(
                 $bucket->key(),
                 $bucket->toArray(),
-                ceil($bucket->duration() / 60)
+                ceil($bucket->duration())
             );
         }
 
