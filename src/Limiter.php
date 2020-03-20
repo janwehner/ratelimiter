@@ -37,9 +37,7 @@ class Limiter implements Contract
     /**
      * Create a new rate limiter instance.
      *
-     * @param \Illuminate\Contracts\Cache\Repository   $cache
-     * @param \ArtisanSdk\RateLimiter\Contracts\Bucket $bucket
-     * @param \Illuminate\Contracts\Events\Dispatcher  $events
+     * @param \Illuminate\Contracts\Events\Dispatcher $events
      */
     public function __construct(Cache $cache, Bucket $bucket, Dispatcher $events = null)
     {
@@ -97,8 +95,6 @@ class Limiter implements Contract
 
     /**
      * Determine if the limit threshold has been exceeded.
-     *
-     * @return bool
      */
     public function exceeded(): bool
     {
@@ -117,8 +113,6 @@ class Limiter implements Contract
 
     /**
      * Does the rate limiter have a timeout?
-     *
-     * @return bool
      */
     public function hasTimeout(): bool
     {
@@ -151,8 +145,6 @@ class Limiter implements Contract
 
     /**
      * Increment the counter for the rate limiter.
-     *
-     * @return int
      */
     public function hit(): int
     {
@@ -170,8 +162,6 @@ class Limiter implements Contract
 
     /**
      * Get the maximum number of hits allowed by the limiter.
-     *
-     * @return int
      */
     public function limit(): int
     {
@@ -180,8 +170,6 @@ class Limiter implements Contract
 
     /**
      * Get the number of hits against the rate limiter.
-     *
-     * @return int
      */
     public function hits(): int
     {
@@ -190,8 +178,6 @@ class Limiter implements Contract
 
     /**
      * Reset the number of hits for the rate limiter.
-     *
-     * @return bool
      */
     public function reset(): bool
     {
@@ -202,8 +188,6 @@ class Limiter implements Contract
 
     /**
      * Get the number of remaining hits allowed by the limiter.
-     *
-     * @return int
      */
     public function remaining(): int
     {
@@ -222,8 +206,6 @@ class Limiter implements Contract
 
     /**
      * Get the number of seconds until the limiter is available again.
-     *
-     * @return int
      */
     public function backoff(): int
     {
@@ -234,8 +216,6 @@ class Limiter implements Contract
      * Get the timeout key.
      *
      * @param string $key
-     *
-     * @return string
      */
     protected function getTimeoutKey(string $key = null): string
     {
