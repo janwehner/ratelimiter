@@ -109,8 +109,6 @@ class Dispatcher implements Contract
 
     /**
      * Get the events that were fired.
-     *
-     * @return array
      */
     public function getEvents(): array
     {
