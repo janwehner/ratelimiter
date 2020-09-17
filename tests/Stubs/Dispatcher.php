@@ -19,7 +19,7 @@ class Dispatcher implements Contract
      * @param string|array $events
      * @param mixed        $listener
      */
-    public function listen($events, $listener)
+    public function listen($events, $listener = null)
     {
     }
 
