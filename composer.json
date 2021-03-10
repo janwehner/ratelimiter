@@ -15,7 +15,7 @@
         "optimize-autoloader": true
     },
     "require": {
-        "php": ">=7.3",
+        "php": "^7.3|^8.0",
         "illuminate/contracts": "^8.0",
         "nesbot/carbon": "^2.0",
         "symfony/http-kernel": "^5.0"
