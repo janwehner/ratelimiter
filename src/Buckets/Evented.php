@@ -24,7 +24,7 @@ class Evented extends Leaky
     /**
      * {@inheritdoc}
      */
-    public function __construct(string $key = 'default', int $max = 60, $rate = 1, Dispatcher $events)
+    public function __construct(string $key = 'default', int $max = 60, $rate = 1, Dispatcher $events = null)
     {
         parent::__construct($key, $max, $rate);
 

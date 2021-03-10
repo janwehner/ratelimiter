@@ -1,6 +1,6 @@
 <?php
 
-namespace ArtisanSdk\RateLimiter\Tests;
+namespace ArtisanSdk\RateLimiter\Tests\Buckets;
 
 use ArtisanSdk\RateLimiter\Buckets\Evented;
 use ArtisanSdk\RateLimiter\Events\Event;
@@ -9,6 +9,7 @@ use ArtisanSdk\RateLimiter\Events\Filling;
 use ArtisanSdk\RateLimiter\Events\Leaked;
 use ArtisanSdk\RateLimiter\Events\Leaking;
 use ArtisanSdk\RateLimiter\Tests\Stubs\Dispatcher;
+use ArtisanSdk\RateLimiter\Tests\TestCase;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use JsonSerializable;

@@ -131,12 +131,13 @@ class Cache implements Repository
     /**
      * Get an item from the cache, or store the default value.
      *
-     * @param string                                     $key
+     * @param string $key
      * @param \DateTimeInterface|\DateInterval|float|int $ttl
      *
+     * @param Closure $callback
      * @return mixed
      */
-    public function remember($key, $ttl = null, Closure $callback)
+    public function remember($key, $ttl, Closure $callback)
     {
         $value = $this->get($key);
 
