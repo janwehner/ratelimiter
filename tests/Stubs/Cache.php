@@ -4,24 +4,20 @@ namespace ArtisanSdk\RateLimiter\Tests\Stubs;
 
 use Closure;
 use Illuminate\Contracts\Cache\Repository;
+use Illuminate\Contracts\Cache\Store;
+use Psr\SimpleCache\InvalidArgumentException;
 
 class Cache implements Repository
 {
     /**
      * The storage implementation.
-     *
-     * @var array
      */
-    protected $storage = [];
+    protected array $storage = [];
 
     /**
      * Determine if an item exists in the cache.
-     *
-     * @param string $key
-     *
-     * @return bool
      */
-    public function has($key)
+    public function has(string $key): bool
     {
         return isset($this->storage[$key]);
     }
@@ -29,12 +25,9 @@ class Cache implements Repository
     /**
      * Retrieve an item from the cache by key.
      *
-     * @param string $key
-     * @param mixed  $default
-     *
-     * @return mixed
+     * @param mixed $default
      */
-    public function get($key, $default = null)
+    public function get(string $key, mixed $default = null): mixed
     {
         return $this->storage[$key] ?? $default;
     }
@@ -44,10 +37,8 @@ class Cache implements Repository
      *
      * @param string $key
      * @param mixed  $default
-     *
-     * @return mixed
      */
-    public function pull($key, $default = null)
+    public function pull($key, $default = null): mixed
     {
         $value = $this->get($key, $default);
 
@@ -74,10 +65,8 @@ class Cache implements Repository
      * @param string                                     $key
      * @param mixed                                      $value
      * @param \DateTimeInterface|\DateInterval|float|int $ttl
-     *
-     * @return bool
      */
-    public function add($key, $value, $ttl = null)
+    public function add($key, $value, $ttl = null): bool
     {
         if ( ! $this->has($key)) {
             $this->put($key, $value, $ttl);
@@ -93,10 +82,8 @@ class Cache implements Repository
      *
      * @param string $key
      * @param mixed  $value
-     *
-     * @return int|bool
      */
-    public function increment($key, $value = 1)
+    public function increment($key, $value = 1): bool|int
     {
         $this->storage[$key] = ! isset($this->storage[$key])
                 ? $value : ((int) $this->storage[$key]) + $value;
@@ -109,10 +96,8 @@ class Cache implements Repository
      *
      * @param string $key
      * @param mixed  $value
-     *
-     * @return int|bool
      */
-    public function decrement($key, $value = 1)
+    public function decrement($key, $value = 1): bool|int
     {
         return $this->increment($key, $value * -1);
     }
@@ -131,13 +116,10 @@ class Cache implements Repository
     /**
      * Get an item from the cache, or store the default value.
      *
-     * @param string $key
+     * @param string                                     $key
      * @param \DateTimeInterface|\DateInterval|float|int $ttl
-     *
-     * @param Closure $callback
-     * @return mixed
      */
-    public function remember($key, $ttl, Closure $callback)
+    public function remember($key, $ttl, Closure $callback): mixed
     {
         $value = $this->get($key);
 
@@ -154,10 +136,8 @@ class Cache implements Repository
      * Get an item from the cache, or store the default value forever.
      *
      * @param string $key
-     *
-     * @return mixed
      */
-    public function sear($key, Closure $callback)
+    public function sear($key, Closure $callback): mixed
     {
         return $this->rememberForever($key, $callback);
     }
@@ -166,10 +146,8 @@ class Cache implements Repository
      * Get an item from the cache, or store the default value forever.
      *
      * @param string $key
-     *
-     * @return mixed
      */
-    public function rememberForever($key, Closure $callback)
+    public function rememberForever($key, Closure $callback): mixed
     {
         $value = $this->get($key);
 
@@ -187,19 +165,17 @@ class Cache implements Repository
      *
      * @param string $key
      *
-     * @return bool
+     * @throws InvalidArgumentException
      */
-    public function forget($key)
+    public function forget($key): bool
     {
         return $this->delete($key);
     }
 
     /**
      * Get the cache store implementation.
-     *
-     * @return \Illuminate\Contracts\Cache\Store
      */
-    public function getStore()
+    public function getStore(): Store|array
     {
         return $this->storage; // this is return type non-compliant
     }
@@ -213,15 +189,13 @@ class Cache implements Repository
      *                                      the driver supports TTL then the library may set a default value
      *                                      for it or let the driver take care of that.
      *
-     * @throws \Psr\SimpleCache\InvalidArgumentException MUST be thrown if the $key string is not a legal value
-     *
-     * @return bool true on success and false on failure
+     * @return bool true on success and false on failure*
      */
-    public function set($key, $value, $ttl = null)
+    public function set(string $key, mixed $value, null|int|\DateInterval $ttl = null): bool
     {
         $this->storage[$key] = $value;
 
-        return ture;
+        return true;
     }
 
     /**
@@ -229,11 +203,9 @@ class Cache implements Repository
      *
      * @param string $key the unique cache key of the item to delete
      *
-     * @throws \Psr\SimpleCache\InvalidArgumentException MUST be thrown if the $key string is not a legal value
-     *
      * @return bool True if the item was successfully removed. False if there was an error.
      */
-    public function delete($key)
+    public function delete(string $key): bool
     {
         unset($this->storage[$key]);
 
@@ -245,7 +217,7 @@ class Cache implements Repository
      *
      * @return bool true on success and false on failure
      */
-    public function clear()
+    public function clear(): bool
     {
         $this->storage = [];
 
@@ -258,12 +230,9 @@ class Cache implements Repository
      * @param iterable $keys    a list of keys that can obtained in a single operation
      * @param mixed    $default default value to return for keys that do not exist
      *
-     * @throws \Psr\SimpleCache\InvalidArgumentException MUST be thrown if $keys is neither an array nor a Traversable,
-     *                                                   or if any of the $keys are not a legal value
-     *
      * @return iterable A list of key => value pairs. Cache keys that do not exist or are stale will have $default as value.
      */
-    public function getMultiple($keys, $default = null)
+    public function getMultiple(iterable $keys, mixed $default = null): iterable
     {
         $values = [];
 
@@ -284,13 +253,9 @@ class Cache implements Repository
      *                                       the driver supports TTL then the library may set a default value
      *                                       for it or let the driver take care of that.
      *
-     * @throws \Psr\SimpleCache\InvalidArgumentException
-     *                                                   MUST be thrown if $values is neither an array nor a Traversable,
-     *                                                   or if any of the $values are not a legal value
-     *
      * @return bool true on success and false on failure
      */
-    public function setMultiple($values, $ttl = null)
+    public function setMultiple(iterable $values, null|int|\DateInterval $ttl = null): bool
     {
         foreach ($values as $key => $value) {
             if ( ! $this->set($key, $value, $ttl)) {
@@ -306,12 +271,9 @@ class Cache implements Repository
      *
      * @param iterable $keys a list of string-based keys to be deleted
      *
-     * @throws \Psr\SimpleCache\InvalidArgumentException MUST be thrown if $keys is neither an array nor a Traversable,
-     *                                                   or if any of the $keys are not a legal value
-     *
      * @return bool True if the items were successfully removed. False if there was an error.
      */
-    public function deleteMultiple($keys)
+    public function deleteMultiple(iterable $keys): bool
     {
         foreach ($keys as $key) {
             if ( ! $this->delete($key)) {

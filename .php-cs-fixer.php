@@ -2,22 +2,22 @@
 
 namespace PhpCsFixer;
 
-return Config::create()
+return (new Config())
     ->setUsingCache(true)
     ->setCacheFile(__DIR__.'/.php_cs.cache')
     ->setRules([
         '@PSR2' => true,
         '@Symfony' => true,
-        'no_multiline_whitespace_before_semicolons' => true,
+        'multiline_whitespace_before_semicolons' => true,
         'not_operator_with_space' => true,
         'ordered_imports' => true,
         'phpdoc_order' => true,
-        'psr0' => false,
+        'psr_autoloading' => false,
         'array_syntax' => [
             'syntax' => 'short',
         ],
         'binary_operator_spaces' => [
-            'align_double_arrow' => true,
+            'operators' => ['=>' => 'align']
         ],
     ])
     ->setFinder(
