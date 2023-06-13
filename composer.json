@@ -16,17 +16,15 @@
     },
     "require": {
         "php": "^8.0",
-        "illuminate/contracts": "^8.0|^9.0",
+        "illuminate/contracts": "^9.0|^10.0",
         "nesbot/carbon": "^2.0",
-        "symfony/http-kernel": "^5.0|^6.0"
+        "symfony/http-kernel": "^6.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^9.0",
+        "phpunit/phpunit": "^10.0",
         "friendsofphp/php-cs-fixer": "^3.0",
         "pdepend/pdepend": "^2.5",
-        "phploc/phploc": "^7.0",
-        "phpmd/phpmd": "^2.7",
-        "sebastian/phpcpd": "^6.0"
+        "phpmd/phpmd": "^2.7"
     },
     "autoload": {
         "psr-4": {
@@ -51,9 +49,7 @@
             "vendor/bin/phpunit --colors=always",
             "vendor/bin/php-cs-fixer fix -v --diff --dry-run",
             "vendor/bin/phpmd \"src/\" html codesize,cleancode,unusedcode,naming --reportfile reports/messes.html --ignore-violations-on-exit",
-            "vendor/bin/pdepend --summary-xml=reports/stats.xml \"src/\"",
-            "vendor/bin/phploc --log-xml=reports/summary.xml src/",
-            "vendor/bin/phpcpd src/ --log-pmd=reports/duplications.xml --min-lines=3 --min-tokens=35"
+            "vendor/bin/pdepend --summary-xml=reports/stats.xml \"src/\""
         ]
     }
 }

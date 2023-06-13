@@ -18,8 +18,6 @@ class Request extends HttpRequest
      * Get the user making the request.
      *
      * @param string $identifier
-     *
-     * @return mixed
      */
     public function user($identifier = null)
     {
@@ -30,7 +28,6 @@ class Request extends HttpRequest
      * Get the route handling the request.
      *
      * @param string|null $param
-     * @param mixed       $default
      *
      * @return \Illuminate\Routing\Route|object|string
      */
@@ -54,7 +51,7 @@ class Request extends HttpRequest
     /**
      * Set the reoute resolver.
      */
-    public function setRouteResolver(Closure $resolver)
+    public function setRouteResolver(\Closure $resolver)
     {
         $this->routeResolver = $resolver;
     }

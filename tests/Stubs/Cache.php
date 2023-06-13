@@ -2,7 +2,6 @@
 
 namespace ArtisanSdk\RateLimiter\Tests\Stubs;
 
-use Closure;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Contracts\Cache\Store;
 use Psr\SimpleCache\InvalidArgumentException;
@@ -36,7 +35,6 @@ class Cache implements Repository
      * Retrieve an item from the cache and delete it.
      *
      * @param string $key
-     * @param mixed  $default
      */
     public function pull($key, $default = null): mixed
     {
@@ -51,7 +49,6 @@ class Cache implements Repository
      * Store an item in the cache.
      *
      * @param string                                     $key
-     * @param mixed                                      $value
      * @param \DateTimeInterface|\DateInterval|float|int $ttl
      */
     public function put($key, $value, $ttl = null)
@@ -63,7 +60,6 @@ class Cache implements Repository
      * Store an item in the cache if the key does not exist.
      *
      * @param string                                     $key
-     * @param mixed                                      $value
      * @param \DateTimeInterface|\DateInterval|float|int $ttl
      */
     public function add($key, $value, $ttl = null): bool
@@ -81,7 +77,6 @@ class Cache implements Repository
      * Increment the value of an item in the cache.
      *
      * @param string $key
-     * @param mixed  $value
      */
     public function increment($key, $value = 1): bool|int
     {
@@ -95,7 +90,6 @@ class Cache implements Repository
      * Decrement the value of an item in the cache.
      *
      * @param string $key
-     * @param mixed  $value
      */
     public function decrement($key, $value = 1): bool|int
     {
@@ -106,7 +100,6 @@ class Cache implements Repository
      * Store an item in the cache indefinitely.
      *
      * @param string $key
-     * @param mixed  $value
      */
     public function forever($key, $value)
     {
@@ -119,7 +112,7 @@ class Cache implements Repository
      * @param string                                     $key
      * @param \DateTimeInterface|\DateInterval|float|int $ttl
      */
-    public function remember($key, $ttl, Closure $callback): mixed
+    public function remember($key, $ttl, \Closure $callback): mixed
     {
         $value = $this->get($key);
 
@@ -137,7 +130,7 @@ class Cache implements Repository
      *
      * @param string $key
      */
-    public function sear($key, Closure $callback): mixed
+    public function sear($key, \Closure $callback): mixed
     {
         return $this->rememberForever($key, $callback);
     }
@@ -147,7 +140,7 @@ class Cache implements Repository
      *
      * @param string $key
      */
-    public function rememberForever($key, Closure $callback): mixed
+    public function rememberForever($key, \Closure $callback): mixed
     {
         $value = $this->get($key);
 

@@ -42,8 +42,6 @@ class Route
      * Get the action array or one of its properties for the route.
      *
      * @param string|null $key
-     *
-     * @return mixed
      */
     public function getAction($key = null)
     {

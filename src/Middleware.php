@@ -5,8 +5,6 @@ namespace ArtisanSdk\RateLimiter;
 use ArtisanSdk\RateLimiter\Contracts\Resolver;
 use ArtisanSdk\RateLimiter\Resolvers\User;
 use Carbon\Carbon;
-use Closure;
-use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -52,10 +50,8 @@ class Middleware
      * @param \Illuminate\Http\Request $request
      *
      * @throws \ArtisanSdk\RateLimiter\Exception
-     *
-     * @return mixed
      */
-    public function handle($request, Closure $next, ...$args)
+    public function handle($request, \Closure $next, ...$args)
     {
         $resolver = $this->makeResolver($request, $args);
 
@@ -93,7 +89,7 @@ class Middleware
 
         $resolver = new $class($request, ...$args);
         if ( ! $resolver instanceof Resolver) {
-            throw new InvalidArgumentException(get_class($resolver).' must be an instance of '.Resolver::class.'.');
+            throw new \InvalidArgumentException(get_class($resolver).' must be an instance of '.Resolver::class.'.');
         }
 
         return $resolver;

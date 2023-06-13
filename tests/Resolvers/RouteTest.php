@@ -6,7 +6,6 @@ use ArtisanSdk\RateLimiter\Resolvers\Route as Resolver;
 use ArtisanSdk\RateLimiter\Tests\Stubs\Request;
 use ArtisanSdk\RateLimiter\Tests\Stubs\Route;
 use ArtisanSdk\RateLimiter\Tests\TestCase;
-use RuntimeException;
 
 class RouteTest extends TestCase
 {
@@ -30,7 +29,7 @@ class RouteTest extends TestCase
 
         try {
             $resolver->key();
-        } catch (RuntimeException $exception) {
+        } catch (\RuntimeException $exception) {
             return;
         }
 

@@ -4,9 +4,8 @@ namespace ArtisanSdk\RateLimiter\Events;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
-use JsonSerializable;
 
-abstract class Event implements Arrayable, Jsonable, JsonSerializable
+abstract class Event implements Arrayable, Jsonable, \JsonSerializable
 {
     /**
      * The payload for the event.
@@ -79,7 +78,7 @@ abstract class Event implements Arrayable, Jsonable, JsonSerializable
      *
      * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         return $this->toArray();
     }

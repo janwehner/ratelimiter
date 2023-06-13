@@ -6,7 +6,6 @@ use ArtisanSdk\RateLimiter\Resolvers\Tag as Resolver;
 use ArtisanSdk\RateLimiter\Tests\Stubs\Request;
 use ArtisanSdk\RateLimiter\Tests\Stubs\Route;
 use ArtisanSdk\RateLimiter\Tests\TestCase;
-use RuntimeException;
 
 class TagTest extends TestCase
 {
@@ -31,7 +30,7 @@ class TagTest extends TestCase
 
         try {
             $resolver->key();
-        } catch (RuntimeException $exception) {
+        } catch (\RuntimeException $exception) {
             return;
         }
 

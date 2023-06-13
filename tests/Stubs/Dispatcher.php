@@ -17,7 +17,6 @@ class Dispatcher implements Contract
      * Register an event listener with the dispatcher.
      *
      * @param string|array $events
-     * @param mixed        $listener
      */
     public function listen($events, $listener = null)
     {
@@ -47,7 +46,6 @@ class Dispatcher implements Contract
      * Dispatch an event until the first non-null response is returned.
      *
      * @param string|object $event
-     * @param mixed         $payload
      *
      * @return array|null
      */
@@ -60,7 +58,6 @@ class Dispatcher implements Contract
      * Dispatch an event and call the listeners.
      *
      * @param string|object $event
-     * @param mixed         $payload
      * @param bool          $halt
      *
      * @return array|null

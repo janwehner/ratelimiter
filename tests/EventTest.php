@@ -6,7 +6,6 @@ use ArtisanSdk\RateLimiter\Events\Event;
 use ArtisanSdk\RateLimiter\Events\Leaked;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
-use JsonSerializable;
 
 class EventTest extends TestCase
 {
@@ -20,7 +19,7 @@ class EventTest extends TestCase
         $this->assertInstanceOf(Event::class, $event, 'The event should extend the '.Event::class.' class.');
         $this->assertInstanceOf(Arrayable::class, $event, 'The event should implement the '.Arrayable::class.' interface.');
         $this->assertInstanceOf(Jsonable::class, $event, 'The event should implement the '.Jsonable::class.' interface.');
-        $this->assertInstanceOf(JsonSerializable::class, $event, 'The event should implement the '.JsonSerializable::class.' interface.');
+        $this->assertInstanceOf(\JsonSerializable::class, $event, 'The event should implement the '.\JsonSerializable::class.' interface.');
     }
 
     /**
@@ -44,7 +43,6 @@ class EventTest extends TestCase
         $event = new Leaked('foo', 10, 50);
 
         $this->assertJson(
-            '{"drips":10,"remaining":50,"key":"foo"}',
             $event->toJson(),
             'Event should be converted to JSON with "key", "drips", and "remaining" keys and values.'
         );
