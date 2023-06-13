@@ -12,7 +12,6 @@ use ArtisanSdk\RateLimiter\Tests\Stubs\Dispatcher;
 use ArtisanSdk\RateLimiter\Tests\TestCase;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
-use JsonSerializable;
 
 class EventedTest extends TestCase
 {
@@ -58,7 +57,7 @@ class EventedTest extends TestCase
         $this->assertInstanceOf(Event::class, $leaked, 'The leaked event should extend the '.Event::class.' class.');
         $this->assertInstanceOf(Arrayable::class, $leaked, 'The leaked event should implement the '.Arrayable::class.' interface.');
         $this->assertInstanceOf(Jsonable::class, $leaked, 'The leaked event should implement the '.Jsonable::class.' interface.');
-        $this->assertInstanceOf(JsonSerializable::class, $leaked, 'The leaked event should implement the '.JsonSerializable::class.' interface.');
+        $this->assertInstanceOf(\JsonSerializable::class, $leaked, 'The leaked event should implement the '.\JsonSerializable::class.' interface.');
         $this->assertSame('default', $leaked->key, 'The leaked event should have the bucket\'s key in the payload.');
         $this->assertSame(0, $leaked->drips, 'The leaked event should have the number of drips leaked out of the bucket in the payload.');
         $this->assertSame(60, $leaked->remaining, 'The leaked event should have the number of remaining capacity of the bucket in the payload.');
@@ -68,7 +67,7 @@ class EventedTest extends TestCase
         $this->assertInstanceOf(Event::class, $leaking, 'The leaking event should extend the '.Event::class.' class.');
         $this->assertInstanceOf(Arrayable::class, $leaking, 'The leaking event should implement the '.Arrayable::class.' interface.');
         $this->assertInstanceOf(Jsonable::class, $leaking, 'The leaking event should implement the '.Jsonable::class.' interface.');
-        $this->assertInstanceOf(JsonSerializable::class, $leaking, 'The leaking event should implement the '.JsonSerializable::class.' interface.');
+        $this->assertInstanceOf(\JsonSerializable::class, $leaking, 'The leaking event should implement the '.\JsonSerializable::class.' interface.');
         $this->assertSame('default', $leaking->key, 'The leaking event should have the bucket\'s key in the payload.');
         $this->assertSame(1.0, $leaking->rate, 'The leaking event should have the bucket\'s leak rate in the payload.');
     }
@@ -89,7 +88,7 @@ class EventedTest extends TestCase
         $this->assertInstanceOf(Event::class, $filled, 'The filled event should extend the '.Event::class.' class.');
         $this->assertInstanceOf(Arrayable::class, $filled, 'The filled event should implement the '.Arrayable::class.' interface.');
         $this->assertInstanceOf(Jsonable::class, $filled, 'The filled event should implement the '.Jsonable::class.' interface.');
-        $this->assertInstanceOf(JsonSerializable::class, $filled, 'The filled event should implement the '.JsonSerializable::class.' interface.');
+        $this->assertInstanceOf(\JsonSerializable::class, $filled, 'The filled event should implement the '.\JsonSerializable::class.' interface.');
         $this->assertSame('default', $filled->key, 'The filled event should have the bucket\'s key in the payload.');
         $this->assertSame(10, $filled->drips, 'The filled event should have the number of drips in the bucket in the payload.');
         $this->assertSame(50, $filled->remaining, 'The filled event should have the number of remaining capacity of the bucket in the payload.');
@@ -99,7 +98,7 @@ class EventedTest extends TestCase
         $this->assertInstanceOf(Event::class, $filling, 'The filling event should extend the '.Event::class.' class.');
         $this->assertInstanceOf(Arrayable::class, $filling, 'The filling event should implement the '.Arrayable::class.' interface.');
         $this->assertInstanceOf(Jsonable::class, $filling, 'The filling event should implement the '.Jsonable::class.' interface.');
-        $this->assertInstanceOf(JsonSerializable::class, $filling, 'The filling event should implement the '.JsonSerializable::class.' interface.');
+        $this->assertInstanceOf(\JsonSerializable::class, $filling, 'The filling event should implement the '.\JsonSerializable::class.' interface.');
         $this->assertSame('default', $filling->key, 'The filling event should have the bucket\'s key in the payload.');
         $this->assertSame(10, $filling->drips, 'The filling event should have the bucket\'s drip to be filled in the payload.');
     }

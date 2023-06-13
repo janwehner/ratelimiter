@@ -3,15 +3,12 @@
 namespace ArtisanSdk\RateLimiter\Buckets;
 
 use ArtisanSdk\RateLimiter\Contracts\Bucket;
-use ArtisanSdk\RateLimiter\Traits\Fluency;
 
 /**
  * Leaky Bucket.
  */
 class Leaky implements Bucket
 {
-    use Fluency;
-
     /**
      * The unique key for the bucket.
      *
@@ -83,7 +80,13 @@ class Leaky implements Bucket
      */
     public function timer($value = null)
     {
-        return $this->property(__FUNCTION__, ! is_null($value) ? (float) $value : null);
+        if (is_null($value)) {
+            return $this->timer;
+        }
+
+        $this->timer = (float) $value;
+
+        return $this;
     }
 
     /**
@@ -95,7 +98,13 @@ class Leaky implements Bucket
      */
     public function max(int $value = null)
     {
-        return $this->property(__FUNCTION__, $value);
+        if (is_null($value)) {
+            return $this->max;
+        }
+
+        $this->max = $value;
+
+        return $this;
     }
 
     /**
@@ -107,7 +116,13 @@ class Leaky implements Bucket
      */
     public function rate($value = null)
     {
-        return $this->property(__FUNCTION__, ! is_null($value) ? (float) $value : null);
+        if (is_null($value)) {
+            return $this->rate;
+        }
+
+        $this->rate = (float) $value;
+
+        return $this;
     }
 
     /**
@@ -237,7 +252,7 @@ class Leaky implements Bucket
      *
      * @return array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         return $this->toArray();
     }

@@ -6,7 +6,6 @@ use ArtisanSdk\RateLimiter\Resolvers\User as Resolver;
 use ArtisanSdk\RateLimiter\Tests\Stubs\Request;
 use ArtisanSdk\RateLimiter\Tests\Stubs\Route;
 use ArtisanSdk\RateLimiter\Tests\TestCase;
-use RuntimeException;
 
 class UserTest extends TestCase
 {
@@ -49,7 +48,7 @@ class UserTest extends TestCase
         $resolver = new Resolver($request);
         try {
             $resolver->key();
-        } catch (RuntimeException $exception) {
+        } catch (\RuntimeException $exception) {
         }
 
         if ( ! $exception) {

@@ -21,9 +21,6 @@ class Evented extends Leaky
      */
     protected $events;
 
-    /**
-     * {@inheritdoc}
-     */
     public function __construct(string $key = 'default', int $max = 60, $rate = 1, Dispatcher $events = null)
     {
         parent::__construct($key, $max, $rate);
@@ -31,9 +28,6 @@ class Evented extends Leaky
         $this->events = $events;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function leak($rate = null): Bucket
     {
         $rate = is_null($rate) ? $this->rate() : (float) $rate;
@@ -56,9 +50,6 @@ class Evented extends Leaky
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function fill(int $drips = 1): Bucket
     {
         $drips = max(0, min($this->max(), $drips)); // out of bounds handling

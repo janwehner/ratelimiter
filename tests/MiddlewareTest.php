@@ -11,8 +11,6 @@ use ArtisanSdk\RateLimiter\Tests\Stubs\Cache;
 use ArtisanSdk\RateLimiter\Tests\Stubs\Request;
 use ArtisanSdk\RateLimiter\Tests\Stubs\Resolver;
 use Carbon\Carbon;
-use InvalidArgumentException;
-use stdClass;
 use Symfony\Component\HttpFoundation\Response;
 
 class MiddlewareTest extends TestCase
@@ -104,13 +102,13 @@ class MiddlewareTest extends TestCase
     {
         $cache = new Cache();
         $limiter = new Limiter($cache, new Leaky());
-        $resolver = new stdClass();
+        $resolver = new \stdClass();
         $middleware = new Middleware($limiter, $resolver);
         $next = function ($request) { return new Response(); };
 
         try {
             $middleware->handle(Request::createFromGlobals(), $next);
-        } catch (InvalidArgumentException $exception) {
+        } catch (\InvalidArgumentException $exception) {
         }
 
         if ( ! $exception) {

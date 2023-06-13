@@ -4,7 +4,6 @@ namespace ArtisanSdk\RateLimiter\Resolvers;
 
 use ArtisanSdk\RateLimiter\Contracts\Resolver;
 use Closure;
-use RuntimeException;
 use Symfony\Component\HttpFoundation\Request;
 
 class User implements Resolver
@@ -79,7 +78,7 @@ class User implements Resolver
             return sha1(ltrim($domain.'|'.$this->request->ip(), '|'));
         }
 
-        throw new RuntimeException('Unable to generate the request signature. Route unavailable.');
+        throw new \RuntimeException('Unable to generate the request signature. Route unavailable.');
     }
 
     /**
@@ -128,8 +127,6 @@ class User implements Resolver
 
     /**
      * Resolve the user from the request.
-     *
-     * @return mixed
      */
     protected function resolveuser()
     {
@@ -141,7 +138,7 @@ class User implements Resolver
     /**
      * Set the user resolver.
      */
-    public function setUserResolver(Closure $resolver)
+    public function setUserResolver(\Closure $resolver)
     {
         $this->userResolver = $resolver;
     }
