@@ -23,8 +23,6 @@ class Cache implements Repository
 
     /**
      * Retrieve an item from the cache by key.
-     *
-     * @param mixed $default
      */
     public function get(string $key, mixed $default = null): mixed
     {
@@ -184,7 +182,7 @@ class Cache implements Repository
      *
      * @return bool true on success and false on failure*
      */
-    public function set(string $key, mixed $value, null|int|\DateInterval $ttl = null): bool
+    public function set(string $key, mixed $value, int|\DateInterval|null $ttl = null): bool
     {
         $this->storage[$key] = $value;
 
@@ -248,7 +246,7 @@ class Cache implements Repository
      *
      * @return bool true on success and false on failure
      */
-    public function setMultiple(iterable $values, null|int|\DateInterval $ttl = null): bool
+    public function setMultiple(iterable $values, int|\DateInterval|null $ttl = null): bool
     {
         foreach ($values as $key => $value) {
             if ( ! $this->set($key, $value, $ttl)) {

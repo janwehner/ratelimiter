@@ -21,22 +21,22 @@ class Middleware
     /**
      * The rate limiter implementation.
      *
-     * @var \ArtisanSdk\RateLimiter\Contracts\Limiter
+     * @var Contracts\Limiter
      */
     protected $limiter;
 
     /**
      * The default request resolver.
      *
-     * @var \ArtisanSdk\RateLimiter\Contracts\Resolver
+     * @var Resolver
      */
     protected $resolver;
 
     /**
      * Inject the rate limiter dependencies.
      *
-     * @param \ArtisanSdk\RateLimiter\Contracts\Limiter         $limiter
-     * @param string|\ArtisanSdk\RateLimiter\Contracts\Resolver $resolver
+     * @param Contracts\Limiter $limiter
+     * @param string|Resolver   $resolver
      */
     public function __construct(Limiter $limiter, $resolver = null)
     {
@@ -49,7 +49,7 @@ class Middleware
      *
      * @param \Illuminate\Http\Request $request
      *
-     * @throws \ArtisanSdk\RateLimiter\Exception
+     * @throws Exception
      */
     public function handle($request, \Closure $next, ...$args)
     {
@@ -98,7 +98,7 @@ class Middleware
     /**
      * Configure the limiter from the resolver.
      *
-     * @return \ArtisanSdk\RateLimiter\Contracts\Limiter
+     * @return Contracts\Limiter
      */
     protected function configureLimiter(Resolver $resolver): Limiter
     {
@@ -117,8 +117,6 @@ class Middleware
      * @param int $limit     of hits allowed
      * @param int $remaining hits allowed
      * @param int $backoff   before next hit should be attempted
-     *
-     * @return \ArtisanSdk\RateLimiter\Exception
      */
     protected function buildException(int $limit, int $remaining, int $backoff): Exception
     {
@@ -134,7 +132,7 @@ class Middleware
      * @param int $remaining hits allowed
      * @param int $backoff   before next hit should be attempted
      */
-    protected function addHeaders(Response $response, int $limit, int $remaining, int $backoff = null): Response
+    protected function addHeaders(Response $response, int $limit, int $remaining, ?int $backoff = null): Response
     {
         $response->headers->add(
             $this->getHeaders($limit, $remaining, $backoff)
@@ -150,7 +148,7 @@ class Middleware
      * @param int $remaining hits allowed
      * @param int $backoff   before next hit should be attempted
      */
-    protected function getHeaders(int $limit, int $remaining, int $backoff = null): array
+    protected function getHeaders(int $limit, int $remaining, ?int $backoff = null): array
     {
         $headers = [
             'X-RateLimit-Limit'     => $limit,

@@ -16,14 +16,14 @@ class Limiter implements Contract
     /**
      * The cache store implementation.
      *
-     * @var \Illuminate\Contracts\Cache\Repository
+     * @var Cache
      */
     protected $cache;
 
     /**
      * The event dispatcher implementation.
      *
-     * @var \Illuminate\Contracts\Events\Dispatcher
+     * @var Dispatcher
      */
     protected $events;
 
@@ -36,10 +36,8 @@ class Limiter implements Contract
 
     /**
      * Create a new rate limiter instance.
-     *
-     * @param \Illuminate\Contracts\Events\Dispatcher $events
      */
-    public function __construct(Cache $cache, Bucket $bucket, Dispatcher $events = null)
+    public function __construct(Cache $cache, Bucket $bucket, ?Dispatcher $events = null)
     {
         $this->cache = $cache;
         $this->events = $events;
@@ -65,7 +63,7 @@ class Limiter implements Contract
      * @param int       $max  hits against the limiter
      * @param int|float $rate in which limiter decays or leaks
      *
-     * @return \ArtisanSdk\RateLimiter\Contracts\Limiter
+     * @return Contract
      */
     public function configure(string $key, int $max, $rate)
     {
@@ -214,10 +212,8 @@ class Limiter implements Contract
 
     /**
      * Get the timeout key.
-     *
-     * @param string $key
      */
-    protected function getTimeoutKey(string $key = null): string
+    protected function getTimeoutKey(?string $key = null): string
     {
         $key = $key ?? $this->lastBucket()->key();
 

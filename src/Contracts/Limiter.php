@@ -11,7 +11,7 @@ interface Limiter
      * @param int       $max  hits against the limiter
      * @param int|float $rate in which limiter decays or leaks
      *
-     * @return \ArtisanSdk\RateLimiter\Contracts\Limiter
+     * @return Limiter
      */
     public function configure(string $key, int $max, $rate);
 
