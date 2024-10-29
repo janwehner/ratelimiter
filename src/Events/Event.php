@@ -51,8 +51,6 @@ abstract class Event implements Arrayable, Jsonable, \JsonSerializable
 
     /**
      * Fill the event with the payload.
-     *
-     * @return \ArtisanSdk\RateLimiter\Events\Event
      */
     public function fill(array $payload = []): Event
     {

@@ -20,25 +20,23 @@ interface Bucket extends Arrayable, Jsonable, JsonSerializable
      *
      * @param float $value
      *
-     * @return float|\ArtisanSdk\RateLimiter\Contracts\Bucket
+     * @return float|Bucket
      */
     public function timer($value = null);
 
     /**
      * Get or set the maximum capacity of the bucket.
      *
-     * @param int $value
-     *
-     * @return int|\ArtisanSdk\RateLimiter\Contracts\Bucket
+     * @return int|Bucket
      */
-    public function max(int $value = null);
+    public function max(?int $value = null);
 
     /**
      * Get or set the rate per second the bucket leaks.
      *
      * @param int|float $value
      *
-     * @return float|\ArtisanSdk\RateLimiter\Contracts\Bucket
+     * @return float|Bucket
      */
     public function rate($value = null);
 
@@ -54,15 +52,13 @@ interface Bucket extends Arrayable, Jsonable, JsonSerializable
 
     /**
      * Reset the bucket to empty.
-     *
-     * @return \ArtisanSdk\RateLimiter\Contracts\Bucket
      */
     public function reset(): Bucket;
 
     /**
      * Configure the setting for the bucket.
      *
-     * @return \ArtisanSdk\RateLimiter\Contracts\Bucket
+     * @return Bucket
      */
     public function configure(array $settings);
 }

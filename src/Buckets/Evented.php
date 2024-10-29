@@ -17,11 +17,11 @@ class Evented extends Leaky
     /**
      * The events dispatcher.
      *
-     * @var \Illuminate\Contracts\Events\Dispatcher
+     * @var Dispatcher
      */
     protected $events;
 
-    public function __construct(string $key = 'default', int $max = 60, $rate = 1, Dispatcher $events = null)
+    public function __construct(string $key = 'default', int $max = 60, $rate = 1, ?Dispatcher $events = null)
     {
         parent::__construct($key, $max, $rate);
 
