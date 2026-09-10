@@ -152,6 +152,14 @@ class Cache implements Repository
     }
 
     /**
+     * Set the expiration of a cached item.
+     */
+    public function touch($key, $ttl): bool
+    {
+        return $this->has($key);
+    }
+
+    /**
      * Remove an item from the cache.
      *
      * @param string $key
